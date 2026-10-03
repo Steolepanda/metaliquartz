@@ -20,6 +20,8 @@
 | `git diff --cached --check` for the initial import | Exit 2; existing catalog string indentation, Markdown whitespace and vendored Syphon whitespace; no source changes made for this cosmetic check |
 | `bash Scripts/public-preflight.sh` after the clean root commit | Exit 0: `Scanned 218 prospective files, 218 index entries and 215 reachable history blobs.`; `Public preflight passed: no prohibited paths or recognized private-information patterns found.` |
 | `git push -u origin codex/public-source` | Exit 0: `[new branch] codex/public-source -> codex/public-source` |
+| `gh run view 37119361508 --repo Steolepanda/metaliquartz --json conclusion,jobs,url` | Remote CI failed `Check public files and reachable history`; privacy regression tests passed |
+| Post-upload documentation/privacy checks | Exit 0; 41 Markdown files, 17 decisions, 4 fixtures; source history and staged docs pass |
 
 ## Observations
 
@@ -34,7 +36,9 @@ remote-history rewrite and awaits owner approval. The old local development chec
 
 ## Not checked
 
-- Remote workflow results are pending inspection. The workflow checks all fetched history, so
-  the existing GitHub `main` contact metadata can block it until that history is removed.
+- [Remote CI run 37119361508](https://github.com/Steolepanda/metaliquartz/actions/runs/37119361508)
+  failed its history privacy gate. Checkout fetches the existing `main` contact metadata too;
+  cleanup remains pending approval. Strict docs checking was skipped after the failure, while
+  the JSON docs report was generated. No remote green gate is claimed.
 - No app binaries, alpha release, GitHub Release, tags, notarization or device/soak run were uploaded.
 - Full app tests and build gates were not repeated for this source-only publication.

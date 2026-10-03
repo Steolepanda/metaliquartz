@@ -64,7 +64,9 @@ Jump to the [known problems](#known-problems-and-risks) or the [next actions](#n
   `2dd0f43dc9a92b89c1b27aacca509794ef827ed4`, using a GitHub noreply identity and fresh history.
   The target repository's original `main` contains one initial README commit with a personal
   email in its metadata. Replacing that commit requires owner approval; it is preserved locally.
-  Remote CI status is pending inspection; see `evidence/2026-10-03-github-publication.md`.
+  Remote CI failed its history privacy step because the checkout also fetches that original
+  `main` commit. Local privacy and documentation checks for the clean source pass; see
+  `evidence/2026-10-03-github-publication.md`.
 
 ## Next actions
 

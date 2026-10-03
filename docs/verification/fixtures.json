@@ -1,0 +1,24 @@
+{
+  "note": "Hash-guarded fixtures for the documentation gate. A change to a listed file is a deliberate change: update its hash in the same change and say why in the changelog.",
+  "fixtures": [
+    {
+      "path": "docs/verification/fixtures/qc-color-port-signatures.json",
+      "sha256": "78806864235f7a73f3767d9adc7e45e96233f97e31f464dea4af52285db69e0c"
+    },
+    {
+      "path": "Sources/Graph/QuartzComposerColorPatches.swift",
+      "sha256": "4454ff8b2fb610bd2608405570c771671f0d35c86a1b8abb1951b9a9facde7d5"
+    },
+    {
+      "path": "Sources/Graph/QCColorMath.swift",
+      "sha256": "c62844aa8a8bb0974f34472993b24cc6487e5f4af7a5c33d193076e466341267"
+    },
+    {
+      "path": "docs/verification/fixtures/qc-color-generation-schema.json",
+      "sha256": "4413399d2eb0ce065b6ee075b7b06f2851099dda3142d543ccfb65e2b11bbe20"
+    }
+  ],
+  "fixtureDirectories": [
+    "docs/verification/fixtures"
+  ]
+}

@@ -1,0 +1,834 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B00000000000000000000101 /* MetaliquartzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000101 /* MetaliquartzApp.swift */; };
+		B00000000000000000000102 /* EditorShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000102 /* EditorShellView.swift */; };
+		B00000000000000000000103 /* PatchDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000103 /* PatchDescriptor.swift */; };
+		B00000000000000000000104 /* GraphCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000104 /* GraphCanvasView.swift */; };
+		B00000000000000000000105 /* MetalPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000105 /* MetalPreviewView.swift */; };
+		B00000000000000000000106 /* MetalPreviewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000106 /* MetalPreviewRenderer.swift */; };
+		B00000000000000000000107 /* PreviewShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000107 /* PreviewShaders.metal */; };
+		B00000000000000000000108 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000108 /* Assets.xcassets */; };
+		B00000000000000000000109 /* MetalPreviewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000109 /* MetalPreviewRendererTests.swift */; };
+		B00000000000000000000110 /* CompositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000110 /* CompositionModel.swift */; };
+		B00000000000000000000111 /* CompositionDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000111 /* CompositionDocument.swift */; };
+		B00000000000000000000112 /* CompositionModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000112 /* CompositionModelTests.swift */; };
+		B00000000000000000000113 /* GraphEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000114 /* GraphEditing.swift */; };
+		B00000000000000000000114 /* GraphEditingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000115 /* GraphEditingTests.swift */; };
+		B00000000000000000000115 /* GraphRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000116 /* GraphRuntime.swift */; };
+		B00000000000000000000116 /* GraphRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000117 /* GraphRuntimeTests.swift */; };
+		B00000000000000000000117 /* MetalImageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000118 /* MetalImageRenderer.swift */; };
+		B00000000000000000000118 /* MetalImageRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000119 /* MetalImageRendererTests.swift */; };
+		B00000000000000000000119 /* MediaSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000120 /* MediaSources.swift */; };
+		B00000000000000000000120 /* MediaSourcesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000121 /* MediaSourcesTests.swift */; };
+		B00000000000000000000121 /* ImageEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000122 /* ImageEffects.swift */; };
+		B00000000000000000000122 /* ImageEffectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000123 /* ImageEffectsTests.swift */; };
+		B00000000000000000000123 /* GeometryRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000124 /* GeometryRenderer.swift */; };
+		B00000000000000000000124 /* GeometryRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000125 /* GeometryRendererTests.swift */; };
+		B00000000000000000000125 /* FeedbackTextureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000126 /* FeedbackTextureStore.swift */; };
+		B00000000000000000000126 /* FeedbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000127 /* FeedbackTests.swift */; };
+		B00000000000000000000127 /* RenderDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000128 /* RenderDiagnostics.swift */; };
+		B00000000000000000000128 /* LiveSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000129 /* LiveSession.swift */; };
+		B00000000000000000000129 /* LiveSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000130 /* LiveSessionTests.swift */; };
+		B00000000000000000000130 /* MacroGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000131 /* MacroGraph.swift */; };
+		B00000000000000000000131 /* MacroGraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000132 /* MacroGraphTests.swift */; };
+		B00000000000000000000132 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F00000000000000000000133 /* Syphon.framework */; };
+		B00000000000000000000133 /* Syphon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F00000000000000000000133 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B00000000000000000000134 /* SyphonIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000135 /* SyphonIntegration.swift */; };
+		B00000000000000000000135 /* SyphonIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000136 /* SyphonIntegrationTests.swift */; };
+		B00000000000000000000136 /* MIDIIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000137 /* MIDIIntegration.swift */; };
+		B00000000000000000000137 /* OSCIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000138 /* OSCIntegration.swift */; };
+		B00000000000000000000138 /* LiveControlIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000139 /* LiveControlIntegration.swift */; };
+		B00000000000000000000139 /* LiveControlIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000140 /* LiveControlIntegrationTests.swift */; };
+		B00000000000000000000140 /* MIDIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000141 /* MIDIIntegrationTests.swift */; };
+		B00000000000000000000141 /* OSCIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000142 /* OSCIntegrationTests.swift */; };
+		B00000000000000000000142 /* ApplicationHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000143 /* ApplicationHealth.swift */; };
+		B00000000000000000000143 /* SampleCompositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000144 /* SampleCompositions.swift */; };
+		B00000000000000000000144 /* PermissionGuidance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000145 /* PermissionGuidance.swift */; };
+		B00000000000000000000145 /* AlphaHardeningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000146 /* AlphaHardeningTests.swift */; };
+		B00000000000000000000146 /* InterfacePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000147 /* InterfacePreferences.swift */; };
+		B00000000000000000000147 /* ImageDropImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000148 /* ImageDropImport.swift */; };
+		B00000000000000000000148 /* LegacyInterfaceAndImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000149 /* LegacyInterfaceAndImportTests.swift */; };
+		B00000000000000000000149 /* LegacyPatchCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000150 /* LegacyPatchCatalog.swift */; };
+		B00000000000000000000150 /* RotaryFader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000151 /* RotaryFader.swift */; };
+		B00000000000000000000151 /* QuartzComposerMilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000152 /* QuartzComposerMilestoneTests.swift */; };
+		B00000000000000000000152 /* GoldenAuthoringJourneyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000153 /* GoldenAuthoringJourneyUITests.swift */; };
+		B00000000000000000000153 /* QuartzComposerColorPatches.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000204 /* QuartzComposerColorPatches.swift */; };
+		B00000000000000000000154 /* QCColorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000205 /* QCColorMath.swift */; };
+		B00000000000000000000155 /* QCColorPatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000206 /* QCColorPatchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C00000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = T00000000000000000000001;
+			remoteInfo = Metaliquartz;
+		};
+		C00000000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F00000000000000000000134 /* Syphon.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Syphon;
+		};
+		C00000000000000000000003 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F00000000000000000000134 /* Syphon.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = Syphon;
+		};
+		C00000000000000000000004 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = T00000000000000000000001;
+			remoteInfo = Metaliquartz;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		P00000000000000000000007 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B00000000000000000000133 /* Syphon.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F00000000000000000000001 /* Metaliquartz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metaliquartz.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F00000000000000000000002 /* MetaliquartzTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetaliquartzTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F00000000000000000000003 /* MetaliquartzUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetaliquartzUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F00000000000000000000101 /* MetaliquartzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaliquartzApp.swift; sourceTree = "<group>"; };
+		F00000000000000000000102 /* EditorShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorShellView.swift; sourceTree = "<group>"; };
+		F00000000000000000000103 /* PatchDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchDescriptor.swift; sourceTree = "<group>"; };
+		F00000000000000000000104 /* GraphCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCanvasView.swift; sourceTree = "<group>"; };
+		F00000000000000000000105 /* MetalPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalPreviewView.swift; sourceTree = "<group>"; };
+		F00000000000000000000106 /* MetalPreviewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalPreviewRenderer.swift; sourceTree = "<group>"; };
+		F00000000000000000000107 /* PreviewShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = PreviewShaders.metal; sourceTree = "<group>"; };
+		F00000000000000000000108 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F00000000000000000000109 /* MetalPreviewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalPreviewRendererTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000110 /* CompositionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionModel.swift; sourceTree = "<group>"; };
+		F00000000000000000000111 /* CompositionDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionDocument.swift; sourceTree = "<group>"; };
+		F00000000000000000000112 /* CompositionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionModelTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000113 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F00000000000000000000114 /* GraphEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphEditing.swift; sourceTree = "<group>"; };
+		F00000000000000000000115 /* GraphEditingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphEditingTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000116 /* GraphRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphRuntime.swift; sourceTree = "<group>"; };
+		F00000000000000000000117 /* GraphRuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphRuntimeTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000118 /* MetalImageRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalImageRenderer.swift; sourceTree = "<group>"; };
+		F00000000000000000000119 /* MetalImageRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalImageRendererTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000120 /* MediaSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSources.swift; sourceTree = "<group>"; };
+		F00000000000000000000121 /* MediaSourcesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSourcesTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000122 /* ImageEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEffects.swift; sourceTree = "<group>"; };
+		F00000000000000000000123 /* ImageEffectsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEffectsTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000124 /* GeometryRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryRenderer.swift; sourceTree = "<group>"; };
+		F00000000000000000000125 /* GeometryRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryRendererTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000126 /* FeedbackTextureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTextureStore.swift; sourceTree = "<group>"; };
+		F00000000000000000000127 /* FeedbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000128 /* RenderDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderDiagnostics.swift; sourceTree = "<group>"; };
+		F00000000000000000000129 /* LiveSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSession.swift; sourceTree = "<group>"; };
+		F00000000000000000000130 /* LiveSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSessionTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000131 /* MacroGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroGraph.swift; sourceTree = "<group>"; };
+		F00000000000000000000132 /* MacroGraphTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroGraphTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000134 /* Syphon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Syphon/Syphon.xcodeproj; sourceTree = "<group>"; };
+		F00000000000000000000135 /* SyphonIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonIntegration.swift; sourceTree = "<group>"; };
+		F00000000000000000000136 /* SyphonIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonIntegrationTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000137 /* MIDIIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIIntegration.swift; sourceTree = "<group>"; };
+		F00000000000000000000138 /* OSCIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSCIntegration.swift; sourceTree = "<group>"; };
+		F00000000000000000000139 /* LiveControlIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveControlIntegration.swift; sourceTree = "<group>"; };
+		F00000000000000000000140 /* LiveControlIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveControlIntegrationTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000141 /* MIDIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIIntegrationTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000142 /* OSCIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSCIntegrationTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000143 /* ApplicationHealth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationHealth.swift; sourceTree = "<group>"; };
+		F00000000000000000000144 /* SampleCompositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCompositions.swift; sourceTree = "<group>"; };
+		F00000000000000000000145 /* PermissionGuidance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionGuidance.swift; sourceTree = "<group>"; };
+		F00000000000000000000146 /* AlphaHardeningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaHardeningTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000147 /* InterfacePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfacePreferences.swift; sourceTree = "<group>"; };
+		F00000000000000000000148 /* ImageDropImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDropImport.swift; sourceTree = "<group>"; };
+		F00000000000000000000149 /* LegacyInterfaceAndImportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyInterfaceAndImportTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000150 /* LegacyPatchCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyPatchCatalog.swift; sourceTree = "<group>"; };
+		F00000000000000000000151 /* RotaryFader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotaryFader.swift; sourceTree = "<group>"; };
+		F00000000000000000000152 /* QuartzComposerMilestoneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuartzComposerMilestoneTests.swift; sourceTree = "<group>"; };
+		F00000000000000000000153 /* GoldenAuthoringJourneyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoldenAuthoringJourneyUITests.swift; sourceTree = "<group>"; };
+		F00000000000000000000201 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		F00000000000000000000202 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		F00000000000000000000203 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		F00000000000000000000204 /* QuartzComposerColorPatches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuartzComposerColorPatches.swift; sourceTree = "<group>"; };
+		F00000000000000000000205 /* QCColorMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCColorMath.swift; sourceTree = "<group>"; };
+		F00000000000000000000206 /* QCColorPatchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCColorPatchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		P00000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00000000000000000000132 /* Syphon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		P00000000000000000000005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		P00000000000000000000008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		G00000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				G00000000000000000000002 /* Config */,
+				G00000000000000000000003 /* Sources */,
+				G00000000000000000000009 /* Tests */,
+				G00000000000000000000016 /* UITests */,
+				G00000000000000000000013 /* Vendor */,
+				G00000000000000000000010 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		G00000000000000000000002 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000201 /* Base.xcconfig */,
+				F00000000000000000000202 /* Debug.xcconfig */,
+				F00000000000000000000203 /* Release.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000003 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				G00000000000000000000004 /* App */,
+				G00000000000000000000011 /* Documents */,
+				G00000000000000000000005 /* Editor */,
+				G00000000000000000000006 /* Graph */,
+				G00000000000000000000015 /* Integrations */,
+				G00000000000000000000012 /* Media */,
+				G00000000000000000000007 /* Renderer */,
+				G00000000000000000000008 /* Resources */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000004 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000143 /* ApplicationHealth.swift */,
+				F00000000000000000000147 /* InterfacePreferences.swift */,
+				F00000000000000000000101 /* MetaliquartzApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000005 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000102 /* EditorShellView.swift */,
+				F00000000000000000000104 /* GraphCanvasView.swift */,
+				F00000000000000000000148 /* ImageDropImport.swift */,
+				F00000000000000000000129 /* LiveSession.swift */,
+				F00000000000000000000151 /* RotaryFader.swift */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000006 /* Graph */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000110 /* CompositionModel.swift */,
+				F00000000000000000000114 /* GraphEditing.swift */,
+				F00000000000000000000116 /* GraphRuntime.swift */,
+				F00000000000000000000150 /* LegacyPatchCatalog.swift */,
+				F00000000000000000000131 /* MacroGraph.swift */,
+				F00000000000000000000103 /* PatchDescriptor.swift */,
+				F00000000000000000000205 /* QCColorMath.swift */,
+				F00000000000000000000204 /* QuartzComposerColorPatches.swift */,
+			);
+			path = Graph;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000007 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000126 /* FeedbackTextureStore.swift */,
+				F00000000000000000000124 /* GeometryRenderer.swift */,
+				F00000000000000000000122 /* ImageEffects.swift */,
+				F00000000000000000000118 /* MetalImageRenderer.swift */,
+				F00000000000000000000105 /* MetalPreviewView.swift */,
+				F00000000000000000000106 /* MetalPreviewRenderer.swift */,
+				F00000000000000000000128 /* RenderDiagnostics.swift */,
+				F00000000000000000000107 /* PreviewShaders.metal */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000008 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000108 /* Assets.xcassets */,
+				F00000000000000000000113 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000009 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000146 /* AlphaHardeningTests.swift */,
+				F00000000000000000000206 /* QCColorPatchTests.swift */,
+				F00000000000000000000149 /* LegacyInterfaceAndImportTests.swift */,
+				F00000000000000000000112 /* CompositionModelTests.swift */,
+				F00000000000000000000127 /* FeedbackTests.swift */,
+				F00000000000000000000115 /* GraphEditingTests.swift */,
+				F00000000000000000000125 /* GeometryRendererTests.swift */,
+				F00000000000000000000117 /* GraphRuntimeTests.swift */,
+				F00000000000000000000123 /* ImageEffectsTests.swift */,
+				F00000000000000000000140 /* LiveControlIntegrationTests.swift */,
+				F00000000000000000000130 /* LiveSessionTests.swift */,
+				F00000000000000000000132 /* MacroGraphTests.swift */,
+				F00000000000000000000141 /* MIDIIntegrationTests.swift */,
+				F00000000000000000000142 /* OSCIntegrationTests.swift */,
+				F00000000000000000000152 /* QuartzComposerMilestoneTests.swift */,
+				F00000000000000000000136 /* SyphonIntegrationTests.swift */,
+				F00000000000000000000119 /* MetalImageRendererTests.swift */,
+				F00000000000000000000121 /* MediaSourcesTests.swift */,
+				F00000000000000000000109 /* MetalPreviewRendererTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000016 /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000153 /* GoldenAuthoringJourneyUITests.swift */,
+			);
+			path = UITests;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000011 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000111 /* CompositionDocument.swift */,
+				F00000000000000000000144 /* SampleCompositions.swift */,
+			);
+			path = Documents;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000012 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000120 /* MediaSources.swift */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000013 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000134 /* Syphon.xcodeproj */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000014 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000133 /* Syphon.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000015 /* Integrations */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000139 /* LiveControlIntegration.swift */,
+				F00000000000000000000137 /* MIDIIntegration.swift */,
+				F00000000000000000000138 /* OSCIntegration.swift */,
+				F00000000000000000000145 /* PermissionGuidance.swift */,
+				F00000000000000000000135 /* SyphonIntegration.swift */,
+			);
+			path = Integrations;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000010 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000001 /* Metaliquartz.app */,
+				F00000000000000000000002 /* MetaliquartzTests.xctest */,
+				F00000000000000000000003 /* MetaliquartzUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		T00000000000000000000001 /* Metaliquartz */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = L00000000000000000000002 /* Build configuration list for PBXNativeTarget "Metaliquartz" */;
+			buildPhases = (
+				P00000000000000000000001 /* Sources */,
+				P00000000000000000000002 /* Frameworks */,
+				P00000000000000000000003 /* Resources */,
+				P00000000000000000000007 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D00000000000000000000002 /* PBXTargetDependency */,
+			);
+			name = Metaliquartz;
+			productName = Metaliquartz;
+			productReference = F00000000000000000000001 /* Metaliquartz.app */;
+			productType = "com.apple.product-type.application";
+		};
+		T00000000000000000000002 /* MetaliquartzTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = L00000000000000000000003 /* Build configuration list for PBXNativeTarget "MetaliquartzTests" */;
+			buildPhases = (
+				P00000000000000000000004 /* Sources */,
+				P00000000000000000000005 /* Frameworks */,
+				P00000000000000000000006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D00000000000000000000001 /* PBXTargetDependency */,
+			);
+			name = MetaliquartzTests;
+			productName = MetaliquartzTests;
+			productReference = F00000000000000000000002 /* MetaliquartzTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		T00000000000000000000003 /* MetaliquartzUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = L00000000000000000000004 /* Build configuration list for PBXNativeTarget "MetaliquartzUITests" */;
+			buildPhases = (
+				P00000000000000000000010 /* Sources */,
+				P00000000000000000000008 /* Frameworks */,
+				P00000000000000000000009 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D00000000000000000000003 /* PBXTargetDependency */,
+			);
+			name = MetaliquartzUITests;
+			productName = MetaliquartzUITests;
+			productReference = F00000000000000000000003 /* MetaliquartzUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A00000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					T00000000000000000000001 = {
+						CreatedOnToolsVersion = 26.3;
+						ProvisioningStyle = Manual;
+					};
+					T00000000000000000000002 = {
+						CreatedOnToolsVersion = 26.3;
+						ProvisioningStyle = Manual;
+						TestTargetID = T00000000000000000000001;
+					};
+					T00000000000000000000003 = {
+						CreatedOnToolsVersion = 26.3;
+						ProvisioningStyle = Manual;
+						TestTargetID = T00000000000000000000001;
+					};
+				};
+			};
+			buildConfigurationList = L00000000000000000000001 /* Build configuration list for PBXProject "Metaliquartz" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = G00000000000000000000001;
+			productRefGroup = G00000000000000000000010 /* Products */;
+			projectReferences = (
+				{
+					ProductGroup = G00000000000000000000014 /* Products */;
+					ProjectRef = F00000000000000000000134 /* Syphon.xcodeproj */;
+				},
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				T00000000000000000000001 /* Metaliquartz */,
+				T00000000000000000000002 /* MetaliquartzTests */,
+				T00000000000000000000003 /* MetaliquartzUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		P00000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00000000000000000000108 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		P00000000000000000000006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		P00000000000000000000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		P00000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00000000000000000000142 /* ApplicationHealth.swift in Sources */,
+				B00000000000000000000146 /* InterfacePreferences.swift in Sources */,
+				B00000000000000000000101 /* MetaliquartzApp.swift in Sources */,
+				B00000000000000000000111 /* CompositionDocument.swift in Sources */,
+				B00000000000000000000143 /* SampleCompositions.swift in Sources */,
+				B00000000000000000000102 /* EditorShellView.swift in Sources */,
+				B00000000000000000000147 /* ImageDropImport.swift in Sources */,
+				B00000000000000000000128 /* LiveSession.swift in Sources */,
+				B00000000000000000000150 /* RotaryFader.swift in Sources */,
+				B00000000000000000000110 /* CompositionModel.swift in Sources */,
+				B00000000000000000000113 /* GraphEditing.swift in Sources */,
+				B00000000000000000000115 /* GraphRuntime.swift in Sources */,
+				B00000000000000000000149 /* LegacyPatchCatalog.swift in Sources */,
+				B00000000000000000000130 /* MacroGraph.swift in Sources */,
+				B00000000000000000000138 /* LiveControlIntegration.swift in Sources */,
+				B00000000000000000000136 /* MIDIIntegration.swift in Sources */,
+				B00000000000000000000137 /* OSCIntegration.swift in Sources */,
+				B00000000000000000000144 /* PermissionGuidance.swift in Sources */,
+				B00000000000000000000134 /* SyphonIntegration.swift in Sources */,
+				B00000000000000000000117 /* MetalImageRenderer.swift in Sources */,
+				B00000000000000000000125 /* FeedbackTextureStore.swift in Sources */,
+				B00000000000000000000123 /* GeometryRenderer.swift in Sources */,
+				B00000000000000000000121 /* ImageEffects.swift in Sources */,
+				B00000000000000000000119 /* MediaSources.swift in Sources */,
+				B00000000000000000000103 /* PatchDescriptor.swift in Sources */,
+				B00000000000000000000154 /* QCColorMath.swift in Sources */,
+				B00000000000000000000153 /* QuartzComposerColorPatches.swift in Sources */,
+				B00000000000000000000104 /* GraphCanvasView.swift in Sources */,
+				B00000000000000000000105 /* MetalPreviewView.swift in Sources */,
+				B00000000000000000000106 /* MetalPreviewRenderer.swift in Sources */,
+				B00000000000000000000127 /* RenderDiagnostics.swift in Sources */,
+				B00000000000000000000107 /* PreviewShaders.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		P00000000000000000000004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00000000000000000000145 /* AlphaHardeningTests.swift in Sources */,
+				B00000000000000000000155 /* QCColorPatchTests.swift in Sources */,
+				B00000000000000000000148 /* LegacyInterfaceAndImportTests.swift in Sources */,
+				B00000000000000000000112 /* CompositionModelTests.swift in Sources */,
+				B00000000000000000000126 /* FeedbackTests.swift in Sources */,
+				B00000000000000000000114 /* GraphEditingTests.swift in Sources */,
+				B00000000000000000000124 /* GeometryRendererTests.swift in Sources */,
+				B00000000000000000000116 /* GraphRuntimeTests.swift in Sources */,
+				B00000000000000000000122 /* ImageEffectsTests.swift in Sources */,
+				B00000000000000000000139 /* LiveControlIntegrationTests.swift in Sources */,
+				B00000000000000000000129 /* LiveSessionTests.swift in Sources */,
+				B00000000000000000000131 /* MacroGraphTests.swift in Sources */,
+				B00000000000000000000140 /* MIDIIntegrationTests.swift in Sources */,
+				B00000000000000000000141 /* OSCIntegrationTests.swift in Sources */,
+				B00000000000000000000151 /* QuartzComposerMilestoneTests.swift in Sources */,
+				B00000000000000000000135 /* SyphonIntegrationTests.swift in Sources */,
+				B00000000000000000000118 /* MetalImageRendererTests.swift in Sources */,
+				B00000000000000000000120 /* MediaSourcesTests.swift in Sources */,
+				B00000000000000000000109 /* MetalPreviewRendererTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		P00000000000000000000010 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00000000000000000000152 /* GoldenAuthoringJourneyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D00000000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = T00000000000000000000001 /* Metaliquartz */;
+			targetProxy = C00000000000000000000001 /* PBXContainerItemProxy */;
+		};
+		D00000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Syphon;
+			targetProxy = C00000000000000000000003 /* PBXContainerItemProxy */;
+		};
+		D00000000000000000000003 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = T00000000000000000000001 /* Metaliquartz */;
+			targetProxy = C00000000000000000000004 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXReferenceProxy section */
+		F00000000000000000000133 /* Syphon.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Syphon.framework;
+			remoteRef = C00000000000000000000002 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin XCBuildConfiguration section */
+		X00000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+			};
+			name = Debug;
+		};
+		X00000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		X00000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00000000000000000000202 /* Debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Metaliquartz;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.steolepanda.Metaliquartz;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		X00000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00000000000000000000203 /* Release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Metaliquartz;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.steolepanda.Metaliquartz;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		X00000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00000000000000000000202 /* Debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.steolepanda.MetaliquartzTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metaliquartz.app/Contents/MacOS/Metaliquartz";
+			};
+			name = Debug;
+		};
+		X00000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00000000000000000000203 /* Release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.steolepanda.MetaliquartzTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Metaliquartz.app/Contents/MacOS/Metaliquartz";
+			};
+			name = Release;
+		};
+		X00000000000000000000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00000000000000000000202 /* Debug.xcconfig */;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.steolepanda.MetaliquartzUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Metaliquartz;
+			};
+			name = Debug;
+		};
+		X00000000000000000000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00000000000000000000203 /* Release.xcconfig */;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.steolepanda.MetaliquartzUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Metaliquartz;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		L00000000000000000000001 /* Build configuration list for PBXProject "Metaliquartz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				X00000000000000000000001 /* Debug */,
+				X00000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		L00000000000000000000002 /* Build configuration list for PBXNativeTarget "Metaliquartz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				X00000000000000000000003 /* Debug */,
+				X00000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		L00000000000000000000003 /* Build configuration list for PBXNativeTarget "MetaliquartzTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				X00000000000000000000005 /* Debug */,
+				X00000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		L00000000000000000000004 /* Build configuration list for PBXNativeTarget "MetaliquartzUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				X00000000000000000000007 /* Debug */,
+				X00000000000000000000008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A00000000000000000000001 /* Project object */;
+}

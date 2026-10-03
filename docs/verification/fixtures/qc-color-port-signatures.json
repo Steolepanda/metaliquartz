@@ -1,0 +1,352 @@
+{
+  "generator": "Documentation/qcgather/generate-swift-color-patches.py",
+  "note": "Derived snapshot: the six Utility > Color patch signatures from the Quartz Composer built-in-ports probe. It is a faithful, hash-guarded regression record for the generated definitions; the full capture (392 patches) is untracked reference input.",
+  "patches": [
+    {
+      "attributes": {
+        "aliasNames": [
+          "HSB",
+          "Hue",
+          "Saturation",
+          "Luminosity",
+          "Brightness",
+          "Alpha"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Generates a color from hue, saturation, luminosity, and alpha components.",
+        "name": "HSL Color"
+      },
+      "className": "QCColorFromComponents",
+      "inputs": {
+        "input1": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "input1",
+          "kind": 0,
+          "name": "Hue"
+        },
+        "input2": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "input2",
+          "kind": 0,
+          "name": "Saturation"
+        },
+        "input3": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "input3",
+          "kind": 0,
+          "name": "Luminosity"
+        },
+        "inputAlpha": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "inputAlpha",
+          "kind": 0,
+          "name": "Alpha"
+        }
+      },
+      "outputs": {
+        "outputColor": {
+          "baseClass": "QCColorPort",
+          "direction": 1,
+          "key": "outputColor",
+          "kind": 0,
+          "name": "Color"
+        }
+      },
+      "variantName": "QCColorFromComponents:hsl"
+    },
+    {
+      "attributes": {
+        "aliasNames": [
+          "Red",
+          "Green",
+          "Blue",
+          "Alpha"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Generates a color from red, green, blue, and alpha components.",
+        "name": "RGB Color"
+      },
+      "className": "QCColorFromComponents",
+      "inputs": {
+        "input1": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "input1",
+          "kind": 0,
+          "name": "Red"
+        },
+        "input2": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "input2",
+          "kind": 0,
+          "name": "Green"
+        },
+        "input3": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "input3",
+          "kind": 0,
+          "name": "Blue"
+        },
+        "inputAlpha": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "inputAlpha",
+          "kind": 0,
+          "name": "Alpha"
+        }
+      },
+      "outputs": {
+        "outputColor": {
+          "baseClass": "QCColorPort",
+          "direction": 1,
+          "key": "outputColor",
+          "kind": 0,
+          "name": "Color"
+        }
+      },
+      "variantName": "QCColorFromComponents:rgb"
+    },
+    {
+      "attributes": {
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Mixes two colors together.",
+        "name": "Color Mixer"
+      },
+      "className": "QCColorMixer",
+      "inputs": {
+        "inputColor1": {
+          "baseClass": "QCColorPort",
+          "direction": -1,
+          "key": "inputColor1",
+          "kind": 0,
+          "name": "First color"
+        },
+        "inputColor2": {
+          "baseClass": "QCColorPort",
+          "direction": -1,
+          "key": "inputColor2",
+          "kind": 0,
+          "name": "Second color"
+        },
+        "inputInterpolation": {
+          "baseClass": "QCIndexPort",
+          "direction": -1,
+          "key": "inputInterpolation",
+          "kind": 0,
+          "name": "Interpolation"
+        },
+        "inputMix": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "inputMix",
+          "kind": 0,
+          "name": "Mixing Point"
+        }
+      },
+      "outputs": {
+        "outputColor": {
+          "baseClass": "QCColorPort",
+          "direction": 1,
+          "key": "outputColor",
+          "kind": 0,
+          "name": "Color"
+        }
+      },
+      "variantName": "QCColorMixer"
+    },
+    {
+      "attributes": {
+        "aliasNames": [
+          "HSB",
+          "Hue",
+          "Saturation",
+          "Luminosity",
+          "Brightness",
+          "Alpha"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Extracts the hue, saturation, luminosity, and alpha components from a color.",
+        "name": "Color to HSL"
+      },
+      "className": "QCColorToComponents",
+      "inputs": {
+        "inputColor": {
+          "baseClass": "QCColorPort",
+          "direction": -1,
+          "key": "inputColor",
+          "kind": 0,
+          "name": "Color"
+        }
+      },
+      "outputs": {
+        "output1": {
+          "baseClass": "QCNumberPort",
+          "direction": 1,
+          "key": "output1",
+          "kind": 0,
+          "name": "Hue"
+        },
+        "output2": {
+          "baseClass": "QCNumberPort",
+          "direction": 1,
+          "key": "output2",
+          "kind": 0,
+          "name": "Saturation"
+        },
+        "output3": {
+          "baseClass": "QCNumberPort",
+          "direction": 1,
+          "key": "output3",
+          "kind": 0,
+          "name": "Luminosity"
+        },
+        "outputAlpha": {
+          "baseClass": "QCNumberPort",
+          "direction": 1,
+          "key": "outputAlpha",
+          "kind": 0,
+          "name": "Alpha"
+        }
+      },
+      "variantName": "QCColorToComponents:hsl"
+    },
+    {
+      "attributes": {
+        "aliasNames": [
+          "Red",
+          "Green",
+          "Blue",
+          "Alpha"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Extracts the red, green, blue, and alpha components from a color.",
+        "name": "Color to RGB"
+      },
+      "className": "QCColorToComponents",
+      "inputs": {
+        "inputColor": {
+          "baseClass": "QCColorPort",
+          "direction": -1,
+          "key": "inputColor",
+          "kind": 0,
+          "name": "Color"
+        }
+      },
+      "outputs": {
+        "output1": {
+          "baseClass": "QCNumberPort",
+          "direction": 1,
+          "key": "output1",
+          "kind": 0,
+          "name": "Red"
+        },
+        "output2": {
+          "baseClass": "QCNumberPort",
+          "direction": 1,
+          "key": "output2",
+          "kind": 0,
+          "name": "Green"
+        },
+        "output3": {
+          "baseClass": "QCNumberPort",
+          "direction": 1,
+          "key": "output3",
+          "kind": 0,
+          "name": "Blue"
+        },
+        "outputAlpha": {
+          "baseClass": "QCNumberPort",
+          "direction": 1,
+          "key": "outputAlpha",
+          "kind": 0,
+          "name": "Alpha"
+        }
+      },
+      "variantName": "QCColorToComponents:rgb"
+    },
+    {
+      "attributes": {
+        "aliasNames": [
+          "Hue",
+          "Luminosity",
+          "Saturation",
+          "Opacity",
+          "Saturation",
+          "Color Controls"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "This patch modifies the hue, luminosity, saturation, or opacity of a color.",
+        "name": "Color Transformation"
+      },
+      "className": "QCColorTransform",
+      "inputs": {
+        "inputAlpha": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "inputAlpha",
+          "kind": 0,
+          "name": "Alpha Factor"
+        },
+        "inputColor": {
+          "baseClass": "QCColorPort",
+          "direction": -1,
+          "key": "inputColor",
+          "kind": 0,
+          "name": "Color"
+        },
+        "inputHue": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "inputHue",
+          "kind": 0,
+          "name": "Hue Rotation"
+        },
+        "inputLuminosity": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "inputLuminosity",
+          "kind": 0,
+          "name": "Luminosity Factor"
+        },
+        "inputSaturation": {
+          "baseClass": "QCNumberPort",
+          "direction": -1,
+          "key": "inputSaturation",
+          "kind": 0,
+          "name": "Saturation Factor"
+        }
+      },
+      "outputs": {
+        "outputColor": {
+          "baseClass": "QCColorPort",
+          "direction": 1,
+          "key": "outputColor",
+          "kind": 0,
+          "name": "Color"
+        }
+      },
+      "variantName": "QCColorTransform"
+    }
+  ],
+  "probeOSVersion": "Version 27.0 (Build 26A428)",
+  "produces": "Sources/Graph/QuartzComposerColorPatches.swift",
+  "source": "Documentation/qc-reference/meta/builtin-ports.json"
+}

@@ -1,0 +1,749 @@
+#!/usr/bin/env python3
+"""verify-docs — structural check for the Metaliquartz documentation tree.
+
+This is a *structural* gate only. It proves that links resolve, that decision
+records are registered, and that hash-guarded fixtures still match. It can never
+prove that prose agrees with the runtime; that remains a source-review duty
+(see docs/verification/README.md).
+
+Checks, in order:
+
+1. Walk every maintained Markdown file (VCS, build, cache, vendor and the
+   untracked upstream reference dump under Documentation/ are excluded).
+2. Strip fenced code blocks, inline code spans and reference definitions before
+   parsing, so a link shown as an example is not treated as a real link.
+3. Every inline/image/reference link to a repository path must resolve.
+   External schemes (http, https, mailto, ...) and pure fragments are not
+   path-checked.
+4. Anchors (`page.md#heading`, `#heading`) are matched against GitHub-style
+   heading slugs plus explicit `{#id}` and `<a id="...">` / `name="..."`.
+5. The decision registry in wiki/decisions/README.md must agree with the records
+   on disk: unique IDs, every row has a matching record, every record is
+   registered, and each record's front-matter `id`/`status`/`date` is present.
+6. Hash-guarded fixtures listed in docs/verification/fixtures.json must match
+   their recorded SHA-256. Files under the configured fixture directories that
+   are not registered are reported as warnings.
+
+Usage:
+    scripts/verify-docs [--strict] [--json] [--quiet] [--repo-root PATH]
+
+Exit status is non-zero when any error is reported, or when --strict is set and
+any warning is reported. Stdlib only.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import posixpath
+import re
+import sys
+import unicodedata
+from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
+
+# ---------------------------------------------------------------------------
+# Repository layout constants
+# ---------------------------------------------------------------------------
+
+# Directories never scanned for maintained Markdown.
+EXCLUDED_DIRECTORIES = {
+    ".git",
+    ".build",
+    ".swiftpm",
+    ".private",
+    "DerivedData",
+    "build",
+    "node_modules",
+    "vendor",
+    "Vendor",
+    "Pods",
+    "__pycache__",
+    # Untracked upstream/reference material: third-party READMEs and captures.
+    # Never edited by this project, so never link-checked as maintained docs.
+    "Documentation",
+}
+
+# Directories whose Markdown is fully maintained and therefore also anchor-checked.
+MAINTAINED_PREFIXES = ("wiki/", "docs/")
+
+ROOT_MARKDOWN = ("README.md", "AGENTS.md", "THIRD_PARTY_NOTICES.md")
+
+DECISION_REGISTRY = "wiki/decisions/README.md"
+DECISION_DIRECTORY = "wiki/decisions"
+FIXTURE_MANIFEST = "docs/verification/fixtures.json"
+
+EXTERNAL_SCHEMES = (
+    "http://",
+    "https://",
+    "mailto:",
+    "tel:",
+    "ftp://",
+    "file://",
+    "data:",
+    "x-apple",
+    "message:",
+)
+
+FIXTURE_EXTENSIONS = (
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".gif",
+    ".webp",
+    ".pdf",
+    ".json",
+    ".csv",
+    ".metal",
+    ".swift",
+)
+
+INLINE_LINK = re.compile(r"!?\[[^\]]*\]\(\s*([^)\s]+)(?:\s+\"[^\"]*\")?\s*\)")
+REFERENCE_DEFINITION = re.compile(r"^\s{0,3}\[([^\]]+)\]:\s*(\S+)")
+REFERENCE_USE = re.compile(r"!?\[([^\]]+)\]\[([^\]]*)\]")
+FENCE = re.compile(r"^\s{0,3}(`{3,}|~{3,})(.*)$")
+HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
+EXPLICIT_ANCHOR = re.compile(r"\{#([A-Za-z0-9._:-]+)\}")
+HTML_ANCHOR = re.compile(
+    r"""<a\s+[^>]*(?:id|name)\s*=\s*["']([^"']+)["']""", re.IGNORECASE
+)
+FRONT_MATTER = re.compile(r"^---\s*$")
+TABLE_ROW = re.compile(r"^\s*\|(.+)\|\s*$")
+
+
+class Finding:
+    __slots__ = ("path", "line", "severity", "message")
+
+    def __init__(self, path: str, line: int, severity: str, message: str) -> None:
+        self.path = path
+        self.line = line
+        self.severity = severity
+        self.message = message
+
+    def as_dict(self) -> Dict[str, object]:
+        return {
+            "path": self.path,
+            "line": self.line,
+            "severity": self.severity,
+            "message": self.message,
+        }
+
+    def render(self) -> str:
+        return "%s:%d: %s: %s" % (self.path, self.line, self.severity.upper(), self.message)
+
+
+# ---------------------------------------------------------------------------
+# Markdown parsing helpers
+# ---------------------------------------------------------------------------
+
+
+def discover_markdown(repo_root: str) -> List[str]:
+    """Return repository-relative POSIX paths of every maintained Markdown file."""
+    found: List[str] = []
+    for current, directories, files in os.walk(repo_root):
+        directories[:] = sorted(
+            d for d in directories if d not in EXCLUDED_DIRECTORIES and not d.startswith(".")
+        )
+        for name in sorted(files):
+            if not name.lower().endswith(".md"):
+                continue
+            absolute = os.path.join(current, name)
+            relative = os.path.relpath(absolute, repo_root).replace(os.sep, "/")
+            if is_maintained(relative):
+                found.append(relative)
+    return sorted(found)
+
+
+def is_maintained(relative_path: str) -> bool:
+    if relative_path.startswith(MAINTAINED_PREFIXES):
+        return True
+    return relative_path in ROOT_MARKDOWN
+
+
+def strip_code(text: str) -> List[str]:
+    """Blank out fenced blocks, inline spans and reference definitions.
+
+    Characters are replaced by spaces rather than deleted so that every
+    reported line number still points at the original line.
+    """
+    lines = text.splitlines()
+    result: List[str] = []
+    fence_marker: Optional[str] = None
+    for line in lines:
+        fence_match = FENCE.match(line)
+        if fence_marker is None:
+            if fence_match:
+                fence_marker = fence_match.group(1)[0] * 3
+                result.append(" " * len(line))
+                continue
+            result.append(blank_inline_code(line))
+        else:
+            result.append(" " * len(line))
+            if fence_match and fence_match.group(1).startswith(fence_marker):
+                fence_marker = None
+    return result
+
+
+def blank_inline_code(line: str) -> str:
+    characters = list(line)
+    index = 0
+    length = len(characters)
+    while index < length:
+        if characters[index] != "`":
+            index += 1
+            continue
+        run = 0
+        while index + run < length and characters[index + run] == "`":
+            run += 1
+        closing = line.find("`" * run, index + run)
+        if closing == -1:
+            index += run
+            continue
+        for position in range(index, closing + run):
+            characters[position] = " "
+        index = closing + run
+    return "".join(characters)
+
+
+def github_slug(heading: str) -> str:
+    """GitHub-style heading slug: lower-case, punctuation dropped, spaces to '-'."""
+    text = EXPLICIT_ANCHOR.sub("", heading)
+    text = re.sub(r"<[^>]+>", "", text)
+    text = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", text)
+    text = text.replace("`", "")
+    text = unicodedata.normalize("NFKD", text)
+    text = text.lower()
+    text = re.sub(r"[^\w\s-]", "", text, flags=re.UNICODE)
+    text = re.sub(r"\s+", "-", text.strip())
+    return text
+
+
+def collect_anchors(lines: Sequence[str]) -> Set[str]:
+    anchors: Set[str] = set()
+    fence_marker: Optional[str] = None
+    for line in lines:
+        fence_match = FENCE.match(line)
+        if fence_marker is not None:
+            if fence_match and fence_match.group(1).startswith(fence_marker):
+                fence_marker = None
+            continue
+        if fence_match:
+            fence_marker = fence_match.group(1)[0] * 3
+            continue
+        heading = HEADING.match(line)
+        if heading:
+            slug = github_slug(heading.group(2))
+            if slug:
+                anchors.add(slug)
+        for match in EXPLICIT_ANCHOR.finditer(line):
+            anchors.add(match.group(1).lower())
+        for match in HTML_ANCHOR.finditer(line):
+            anchors.add(match.group(1).lower())
+    return anchors
+
+
+# ---------------------------------------------------------------------------
+# Link checking
+# ---------------------------------------------------------------------------
+
+
+def split_target(target: str) -> Tuple[str, str]:
+    target = target.strip()
+    if target.startswith("<") and target.endswith(">"):
+        target = target[1:-1]
+    if "#" in target:
+        path, _, fragment = target.partition("#")
+        return path, fragment
+    return target, ""
+
+
+def is_external(target: str) -> bool:
+    lowered = target.lower()
+    if any(lowered.startswith(scheme) for scheme in EXTERNAL_SCHEMES):
+        return True
+    # Any absolute URL-looking target that is not a root-relative repository path.
+    if re.match(r"^[a-z][a-z0-9+.-]*:", lowered) and not lowered.startswith("/"):
+        return True
+    return False
+
+
+def resolve_repository_path(repo_root: str, source: str, target: str) -> Optional[str]:
+    """Resolve a Markdown path target to a repo-relative path, or None if outside."""
+    if target.startswith("/"):
+        candidate = target.lstrip("/")
+    else:
+        candidate = posixpath.normpath(posixpath.join(posixpath.dirname(source), target))
+    if candidate.startswith(".."):
+        return None
+    return candidate
+
+
+class DocsChecker:
+    def __init__(self, repo_root: str) -> None:
+        self.repo_root = os.path.abspath(repo_root)
+        self.findings: List[Finding] = []
+        self.markdown: List[str] = []
+        self.anchor_cache: Dict[str, Optional[Set[str]]] = {}
+        self.checked_links = 0
+        self.checked_anchors = 0
+        self.checked_records = 0
+        self.checked_fixtures = 0
+
+    # -- reporting ---------------------------------------------------------
+
+    def error(self, path: str, line: int, message: str) -> None:
+        self.findings.append(Finding(path, line, "error", message))
+
+    def warning(self, path: str, line: int, message: str) -> None:
+        self.findings.append(Finding(path, line, "warning", message))
+
+    def absolute(self, relative: str) -> str:
+        return os.path.join(self.repo_root, relative.replace("/", os.sep))
+
+    # -- checks ------------------------------------------------------------
+
+    def run(self) -> None:
+        self.markdown = discover_markdown(self.repo_root)
+        for relative in self.markdown:
+            self.check_file(relative)
+        self.check_decisions()
+        self.check_fixtures()
+
+    def read_lines(self, relative: str) -> Optional[List[str]]:
+        try:
+            with open(self.absolute(relative), "r", encoding="utf-8") as handle:
+                return handle.read().splitlines()
+        except (OSError, UnicodeDecodeError) as failure:
+            self.error(relative, 0, "cannot read file: %s" % failure)
+            return None
+
+    def anchors_for(self, relative: str, lines: Sequence[str]) -> Set[str]:
+        if relative not in self.anchor_cache:
+            self.anchor_cache[relative] = collect_anchors(lines)
+        cached = self.anchor_cache[relative]
+        return cached if cached is not None else set()
+
+    def check_file(self, relative: str) -> None:
+        raw_lines = self.read_lines(relative)
+        if raw_lines is None:
+            return
+        stripped = strip_code("\n".join(raw_lines))
+
+        reference_targets: Dict[str, str] = {}
+        for line in stripped:
+            definition = REFERENCE_DEFINITION.match(line)
+            if definition:
+                reference_targets[definition.group(1).lower()] = definition.group(2)
+
+        for number, line in enumerate(stripped, start=1):
+            for match in INLINE_LINK.finditer(line):
+                self.check_link(relative, number, match.group(1))
+            for match in REFERENCE_USE.finditer(line):
+                label = (match.group(2) or match.group(1)).lower()
+                if label in reference_targets:
+                    self.check_link(relative, number, reference_targets[label])
+
+    def check_link(self, source: str, line: int, raw_target: str) -> None:
+        target = raw_target.strip()
+        if not target or target.startswith("{{"):
+            return
+        if is_external(target):
+            return
+        path, fragment = split_target(target)
+        if not path:
+            # Pure in-page fragment.
+            self.check_anchor(source, source, line, fragment)
+            return
+        resolved = resolve_repository_path(self.repo_root, source, path)
+        if resolved is None:
+            self.error(
+                source, line, "link escapes the repository root: %s" % target
+            )
+            return
+        self.checked_links += 1
+        absolute = self.absolute(resolved)
+        if not os.path.exists(absolute):
+            self.error(source, line, "link target does not exist: %s" % path)
+            return
+        if fragment:
+            if not os.path.isfile(absolute):
+                self.warning(
+                    source,
+                    line,
+                    "anchor on a non-file target is not checked: %s" % target,
+                )
+                return
+            if resolved not in self.markdown:
+                self.warning(
+                    source,
+                    line,
+                    "anchor target %s is not a maintained Markdown file; anchor not checked"
+                    % resolved,
+                )
+                return
+            self.check_anchor(source, resolved, line, fragment)
+
+    def check_anchor(self, source: str, target_file: str, line: int, fragment: str) -> None:
+        self.checked_anchors += 1
+        if source not in self.markdown:
+            return
+        if target_file not in self.anchor_cache:
+            target_lines = self.read_lines(target_file)
+            if target_lines is None:
+                return
+            self.anchor_cache[target_file] = collect_anchors(target_lines)
+        anchors = self.anchor_cache[target_file] or set()
+        candidate = fragment.lower()
+        if candidate not in anchors:
+            self.error(
+                source,
+                line,
+                "anchor '#%s' does not exist in %s" % (fragment, target_file),
+            )
+
+    # -- decision records --------------------------------------------------
+
+    def check_decisions(self) -> None:
+        registry_path = self.absolute(DECISION_REGISTRY)
+        if not os.path.exists(registry_path):
+            self.error(DECISION_REGISTRY, 0, "decision registry is missing")
+            return
+
+        registry_lines = self.read_lines(DECISION_REGISTRY) or []
+        registered: Dict[str, str] = {}
+        for number, line in enumerate(registry_lines, start=1):
+            row = TABLE_ROW.match(line)
+            if not row:
+                continue
+            cells = [cell.strip() for cell in row.group(1).split("|")]
+            if len(cells) < 2:
+                continue
+            identifier = cells[0].strip("`").strip()
+            if not re.match(r"^DEC-\d{4}$", identifier):
+                continue
+            location = cells[1].strip("`").strip()
+            if identifier in registered:
+                self.error(
+                    DECISION_REGISTRY,
+                    number,
+                    "duplicate registry row for %s" % identifier,
+                )
+                continue
+            if not location:
+                self.error(
+                    DECISION_REGISTRY,
+                    number,
+                    "registry row %s has no record path" % identifier,
+                )
+                continue
+            registered[identifier] = location
+
+        directory = self.absolute(DECISION_DIRECTORY)
+        records: Dict[str, str] = {}
+        if not os.path.isdir(directory):
+            self.error(DECISION_DIRECTORY, 0, "decision directory is missing")
+        else:
+            for name in sorted(os.listdir(directory)):
+                if not name.endswith(".md") or name == "README.md":
+                    continue
+                relative = "%s/%s" % (DECISION_DIRECTORY, name)
+                match = re.match(r"^(DEC-\d{4})-", name)
+                if not match:
+                    self.warning(
+                        relative,
+                        0,
+                        "decision record file name does not start with DEC-NNNN-",
+                    )
+                    continue
+                declared = match.group(1)
+                records[declared] = relative
+                self.check_decision_record(relative, declared)
+
+        for identifier, location in sorted(registered.items()):
+            # Registry locations are normally file names beside the registry; a value containing a
+            # slash is interpreted relative to the repository root.
+            if "/" in location:
+                normalized = posixpath.normpath(location)
+            else:
+                normalized = "%s/%s" % (DECISION_DIRECTORY, location)
+            if not os.path.exists(self.absolute(normalized)):
+                self.error(
+                    DECISION_REGISTRY,
+                    0,
+                    "registry lists %s but %s does not exist" % (identifier, normalized),
+                )
+                continue
+            record_id = self.record_front_matter_id(normalized)
+            if record_id is None:
+                self.error(
+                    normalized,
+                    0,
+                    "record has no front-matter id (expected %s)" % identifier,
+                )
+            elif record_id != identifier:
+                self.error(
+                    normalized,
+                    0,
+                    "record declares id %s but the registry row is %s"
+                    % (record_id, identifier),
+                )
+            expected_name = posixpath.basename(normalized)
+            if not expected_name.startswith(identifier + "-"):
+                self.error(
+                    normalized,
+                    0,
+                    "record file name does not start with %s-" % identifier,
+                )
+
+        for identifier, relative in sorted(records.items()):
+            if identifier not in registered:
+                self.error(
+                    relative,
+                    0,
+                    "record %s is not registered in %s" % (identifier, DECISION_REGISTRY),
+                )
+        self.checked_records = len(registered)
+
+    def record_front_matter_id(self, relative: str) -> Optional[str]:
+        lines = self.read_lines(relative)
+        if not lines:
+            return None
+        found, _ = parse_front_matter(lines)
+        identifier = found.get("id")
+        return identifier.strip() if identifier else None
+
+    def check_decision_record(self, relative: str, declared: str) -> None:
+        lines = self.read_lines(relative)
+        if lines is None:
+            return
+        front_matter, body_start = parse_front_matter(lines)
+        if not front_matter:
+            self.error(relative, 1, "decision record has no front matter")
+            return
+        for key in ("id", "status", "date"):
+            if not front_matter.get(key):
+                self.error(relative, 1, "front matter is missing '%s'" % key)
+        identifier = front_matter.get("id", "").strip()
+        if identifier and identifier != declared:
+            self.error(
+                relative,
+                1,
+                "front-matter id %s disagrees with file name %s" % (identifier, declared),
+            )
+        status = front_matter.get("status", "").strip()
+        if status and status not in ("accepted", "superseded", "deprecated", "proposed"):
+            self.warning(
+                relative,
+                1,
+                "unrecognised decision status '%s'" % status,
+            )
+        for heading in ("Context", "Decision", "Consequences"):
+            if heading not in "\n".join(lines[body_start:]):
+                self.error(relative, 1, "record is missing a '%s' section" % heading)
+
+    # -- fixtures ----------------------------------------------------------
+
+    def load_fixture_manifest(self) -> Optional[Dict[str, object]]:
+        path = self.absolute(FIXTURE_MANIFEST)
+        if not os.path.exists(path):
+            self.error(FIXTURE_MANIFEST, 0, "fixture manifest is missing")
+            return None
+        try:
+            with open(path, "r", encoding="utf-8") as handle:
+                return json.load(handle)
+        except (OSError, ValueError) as failure:
+            self.error(FIXTURE_MANIFEST, 0, "fixture manifest is not valid JSON: %s" % failure)
+            return None
+
+    def check_fixtures(self) -> None:
+        manifest = self.load_fixture_manifest()
+        if manifest is None:
+            return
+        fixtures = manifest.get("fixtures")
+        if not isinstance(fixtures, list):
+            self.error(FIXTURE_MANIFEST, 0, "manifest has no 'fixtures' array")
+            return
+        registered: Set[str] = set()
+        for entry in fixtures:
+            if not isinstance(entry, dict):
+                self.error(FIXTURE_MANIFEST, 0, "fixture entry is not an object")
+                continue
+            path = entry.get("path")
+            expected = entry.get("sha256")
+            if not isinstance(path, str) or not path:
+                self.error(FIXTURE_MANIFEST, 0, "fixture entry has no path")
+                continue
+            normalized = posixpath.normpath(path)
+            registered.add(normalized)
+            self.checked_fixtures += 1
+            absolute = self.absolute(normalized)
+            if not os.path.exists(absolute):
+                self.error(
+                    FIXTURE_MANIFEST, 0, "fixture does not exist: %s" % normalized
+                )
+                continue
+            if not isinstance(expected, str) or not re.match(r"^[0-9a-f]{64}$", expected):
+                self.error(
+                    FIXTURE_MANIFEST,
+                    0,
+                    "fixture %s has no valid sha256" % normalized,
+                )
+                continue
+            actual = file_sha256(absolute)
+            if actual != expected:
+                self.error(
+                    FIXTURE_MANIFEST,
+                    0,
+                    "fixture %s hash mismatch (recorded %s, actual %s)"
+                    % (normalized, expected[:12], actual[:12]),
+                )
+
+        directories = manifest.get("fixtureDirectories", [])
+        if isinstance(directories, list):
+            for directory in directories:
+                if not isinstance(directory, str):
+                    continue
+                self.check_unregistered_fixtures(directory, registered)
+
+    def check_unregistered_fixtures(self, directory: str, registered: Set[str]) -> None:
+        absolute_directory = self.absolute(directory)
+        if not os.path.isdir(absolute_directory):
+            return
+        for current, subdirectories, files in os.walk(absolute_directory):
+            subdirectories[:] = sorted(
+                d for d in subdirectories if d not in EXCLUDED_DIRECTORIES
+            )
+            for name in sorted(files):
+                if name.startswith("."):
+                    continue
+                if not name.lower().endswith(FIXTURE_EXTENSIONS):
+                    continue
+                relative = os.path.relpath(
+                    os.path.join(current, name), self.repo_root
+                ).replace(os.sep, "/")
+                if relative not in registered:
+                    self.warning(
+                        relative,
+                        0,
+                        "fixture is not registered in %s" % FIXTURE_MANIFEST,
+                    )
+
+
+def parse_front_matter(lines: Sequence[str]) -> Tuple[Dict[str, str], int]:
+    if not lines or not FRONT_MATTER.match(lines[0]):
+        return {}, 0
+    values: Dict[str, str] = {}
+    for index in range(1, len(lines)):
+        if FRONT_MATTER.match(lines[index]):
+            return values, index + 1
+        if ":" in lines[index]:
+            key, _, value = lines[index].partition(":")
+            values[key.strip().lower()] = value.strip()
+    return {}, 0
+
+
+def file_sha256(path: str) -> str:
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for block in iter(lambda: handle.read(65536), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+
+
+def main(argv: Optional[Sequence[str]] = None) -> int:
+    parser = argparse.ArgumentParser(
+        prog="verify-docs",
+        description="Structurally verify the Metaliquartz documentation tree.",
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="treat warnings as failures",
+    )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="emit machine-readable JSON instead of text",
+    )
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="print only failures and the summary",
+    )
+    parser.add_argument(
+        "--repo-root",
+        default=None,
+        help="repository root to check (default: this script's parent directory)",
+    )
+    arguments = parser.parse_args(argv)
+
+    if arguments.repo_root:
+        repo_root = os.path.abspath(arguments.repo_root)
+    else:
+        repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    if not os.path.isdir(repo_root):
+        sys.stderr.write("verify-docs: not a directory: %s\n" % repo_root)
+        return 2
+
+    checker = DocsChecker(repo_root)
+    checker.run()
+
+    errors = [finding for finding in checker.findings if finding.severity == "error"]
+    warnings = [finding for finding in checker.findings if finding.severity == "warning"]
+    ordered = sorted(
+        checker.findings,
+        key=lambda finding: (finding.path, finding.line, finding.severity),
+    )
+
+    if arguments.json:
+        payload = {
+            "repoRoot": repo_root,
+            "markdownFiles": checker.markdown,
+            "counts": {
+                "markdownFiles": len(checker.markdown),
+                "links": checker.checked_links,
+                "anchors": checker.checked_anchors,
+                "decisions": checker.checked_records,
+                "fixtures": checker.checked_fixtures,
+                "errors": len(errors),
+                "warnings": len(warnings),
+            },
+            "findings": [finding.as_dict() for finding in ordered],
+            "ok": not errors and not (arguments.strict and warnings),
+        }
+        print(json.dumps(payload, indent=2, sort_keys=True))
+    else:
+        for finding in ordered:
+            print(finding.render())
+        # --quiet stays silent only when the tree is clean; findings always print.
+        if not arguments.quiet or checker.findings:
+            print(
+                "verify-docs: %d markdown file(s), %d link(s), %d anchor(s), "
+                "%d decision(s), %d fixture(s) — %d error(s), %d warning(s)"
+                % (
+                    len(checker.markdown),
+                    checker.checked_links,
+                    checker.checked_anchors,
+                    checker.checked_records,
+                    checker.checked_fixtures,
+                    len(errors),
+                    len(warnings),
+                )
+            )
+
+    if errors:
+        return 1
+    if arguments.strict and warnings:
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

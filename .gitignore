@@ -1,0 +1,45 @@
+# macOS
+.DS_Store
+
+# Xcode per-user state
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.xcscmblueprint
+
+# Build products
+DerivedData/
+build/
+*.dSYM
+*.dSYM.zip
+*.xcresult
+*.profraw
+
+# Swift Package Manager
+.build/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+
+# Local environment and logs
+.env
+.env.*
+!.env.example
+*.log
+
+# Local release-safety backups (never publish)
+.private/
+
+# Local upstream captures and public-package output
+/Documentation/
+/dist/
+
+# Signing material and local credentials
+*.mobileprovision
+*.provisionprofile
+*.p12
+*.pfx
+*.pem
+*.key
+
+# Python helper caches
+__pycache__/
+*.pyc

@@ -1,0 +1,7 @@
+* text=auto
+*.swift text diff=swift
+*.metal text
+*.xcconfig text
+*.pbxproj text merge=union
+*.xcscheme text
+*.png binary

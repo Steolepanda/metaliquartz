@@ -1,0 +1,630 @@
+{
+  "note": "Six colour patch port schemas derived from the original Quartz Composer probe; only descriptive generation data is included.",
+  "patches": [
+    {
+      "attributes": {
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Mixes two colors together.",
+        "name": "Color Mixer"
+      },
+      "className": "QCColorMixer",
+      "instanceClass": "QCColorMixer",
+      "name": "QCColorMixer",
+      "ports": {
+        "inputs": {
+          "inputColor1": {
+            "baseClass": "QCColorPort",
+            "description": "The first color.",
+            "direction": -1,
+            "key": "inputColor1",
+            "kind": 0,
+            "name": "First color",
+            "order": 0,
+            "portClass": "QCColorPort",
+            "QCPortAttributeDefaultValueKey": {
+              "alpha": 1,
+              "blue": 0,
+              "green": 0,
+              "red": 0
+            },
+            "QCPortAttributeTypeKey": "QCPortTypeColor",
+            "valueClass": "NSColor"
+          },
+          "inputColor2": {
+            "baseClass": "QCColorPort",
+            "description": "The second color.",
+            "direction": -1,
+            "key": "inputColor2",
+            "kind": 0,
+            "name": "Second color",
+            "order": 1,
+            "portClass": "QCColorPort",
+            "QCPortAttributeDefaultValueKey": {
+              "alpha": 1,
+              "blue": 0.9999999403953552,
+              "green": 0.9999999403953552,
+              "red": 1
+            },
+            "QCPortAttributeTypeKey": "QCPortTypeColor",
+            "valueClass": "NSColor"
+          },
+          "inputInterpolation": {
+            "baseClass": "QCIndexPort",
+            "description": "The interpolation to use when mixing the color components.",
+            "direction": -1,
+            "key": "inputInterpolation",
+            "kind": 0,
+            "menu": [
+              "Linear",
+              "-",
+              "Quadratic In",
+              "Quadratic Out",
+              "Quadratic In-Out",
+              "-",
+              "Cubic In",
+              "Cubic Out",
+              "Cubic In-Out",
+              "-",
+              "Exponential In",
+              "Exponential Out",
+              "Exponential In-Out",
+              "-",
+              "Sinusoidal In",
+              "Sinusoidal Out",
+              "Sinusoidal In-Out"
+            ],
+            "name": "Interpolation",
+            "order": 3,
+            "portClass": "QCInterpolationPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeIndex",
+            "valueClass": "NSNumber"
+          },
+          "inputMix": {
+            "baseClass": "QCNumberPort",
+            "description": "The proportional quantities of the two colors to mix.",
+            "direction": -1,
+            "key": "inputMix",
+            "kind": 0,
+            "name": "Mixing Point",
+            "order": 2,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0.5,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          }
+        },
+        "outputs": {
+          "outputColor": {
+            "baseClass": "QCColorPort",
+            "description": "The resulting color.",
+            "direction": 1,
+            "key": "outputColor",
+            "kind": 0,
+            "name": "Color",
+            "order": 0,
+            "portClass": "QCColorPort",
+            "QCPortAttributeDefaultValueKey": {
+              "alpha": 1,
+              "blue": 0.9999999403953552,
+              "green": 0.9999999403953552,
+              "red": 1
+            },
+            "QCPortAttributeTypeKey": "QCPortTypeColor",
+            "valueClass": "NSColor"
+          }
+        }
+      }
+    },
+    {
+      "attributes": {
+        "aliasNames": [
+          "Hue",
+          "Luminosity",
+          "Saturation",
+          "Opacity",
+          "Saturation",
+          "Color Controls"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "This patch modifies the hue, luminosity, saturation, or opacity of a color.",
+        "examples": [
+          "Alpha.qtz"
+        ],
+        "name": "Color Transformation"
+      },
+      "className": "QCColorTransform",
+      "instanceClass": "QCColorTransform",
+      "name": "QCColorTransform",
+      "ports": {
+        "inputs": {
+          "inputAlpha": {
+            "baseClass": "QCNumberPort",
+            "description": "Alpha multiplication factor.",
+            "direction": -1,
+            "key": "inputAlpha",
+            "kind": 0,
+            "name": "Alpha Factor",
+            "order": 4,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "inputColor": {
+            "baseClass": "QCColorPort",
+            "description": "The source color.",
+            "direction": -1,
+            "key": "inputColor",
+            "kind": 0,
+            "name": "Color",
+            "order": 0,
+            "portClass": "QCColorPort",
+            "QCPortAttributeDefaultValueKey": {
+              "alpha": 1,
+              "blue": 0.9999999403953552,
+              "green": 0.9999999403953552,
+              "red": 1
+            },
+            "QCPortAttributeTypeKey": "QCPortTypeColor",
+            "valueClass": "NSColor"
+          },
+          "inputHue": {
+            "baseClass": "QCNumberPort",
+            "description": "Hue rotation expressed in degrees.",
+            "direction": -1,
+            "key": "inputHue",
+            "kind": 0,
+            "name": "Hue Rotation",
+            "order": 1,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "inputLuminosity": {
+            "baseClass": "QCNumberPort",
+            "description": "Luminosity multiplication factor.",
+            "direction": -1,
+            "key": "inputLuminosity",
+            "kind": 0,
+            "name": "Luminosity Factor",
+            "order": 3,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "inputSaturation": {
+            "baseClass": "QCNumberPort",
+            "description": "Saturation multiplication factor.",
+            "direction": -1,
+            "key": "inputSaturation",
+            "kind": 0,
+            "name": "Saturation Factor",
+            "order": 2,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          }
+        },
+        "outputs": {
+          "outputColor": {
+            "baseClass": "QCColorPort",
+            "description": "The resulting color.",
+            "direction": 1,
+            "key": "outputColor",
+            "kind": 0,
+            "name": "Color",
+            "order": 0,
+            "portClass": "QCColorPort",
+            "QCPortAttributeDefaultValueKey": {
+              "alpha": 1,
+              "blue": 0.9999999403953552,
+              "green": 0.9999999403953552,
+              "red": 1
+            },
+            "QCPortAttributeTypeKey": "QCPortTypeColor",
+            "valueClass": "NSColor"
+          }
+        }
+      }
+    },
+    {
+      "attributes": {
+        "aliasNames": [
+          "Red",
+          "Green",
+          "Blue",
+          "Alpha"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Generates a color from red, green, blue, and alpha components.",
+        "examples": [
+          "Alpha.qtz",
+          "Image Pixel.qtz"
+        ],
+        "name": "RGB Color"
+      },
+      "className": "QCColorFromComponents",
+      "identifier": "rgb",
+      "instanceClass": "QCColorFromComponents",
+      "name": "QCColorFromComponents:rgb",
+      "ports": {
+        "inputs": {
+          "input1": {
+            "baseClass": "QCNumberPort",
+            "description": "The red component.",
+            "direction": -1,
+            "key": "input1",
+            "kind": 0,
+            "name": "Red",
+            "order": 0,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "input2": {
+            "baseClass": "QCNumberPort",
+            "description": "The green component.",
+            "direction": -1,
+            "key": "input2",
+            "kind": 0,
+            "name": "Green",
+            "order": 1,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "input3": {
+            "baseClass": "QCNumberPort",
+            "description": "The blue component.",
+            "direction": -1,
+            "key": "input3",
+            "kind": 0,
+            "name": "Blue",
+            "order": 2,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "inputAlpha": {
+            "baseClass": "QCNumberPort",
+            "description": "The alpha component",
+            "direction": -1,
+            "key": "inputAlpha",
+            "kind": 0,
+            "name": "Alpha",
+            "order": 3,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          }
+        },
+        "outputs": {
+          "outputColor": {
+            "baseClass": "QCColorPort",
+            "description": "The resulting color.",
+            "direction": 1,
+            "key": "outputColor",
+            "kind": 0,
+            "name": "Color",
+            "order": 0,
+            "portClass": "QCColorPort",
+            "QCPortAttributeDefaultValueKey": {
+              "alpha": 1,
+              "blue": 0.9999999403953552,
+              "green": 0.9999999403953552,
+              "red": 1
+            },
+            "QCPortAttributeTypeKey": "QCPortTypeColor",
+            "valueClass": "NSColor"
+          }
+        }
+      }
+    },
+    {
+      "attributes": {
+        "aliasNames": [
+          "HSB",
+          "Hue",
+          "Saturation",
+          "Luminosity",
+          "Brightness",
+          "Alpha"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Generates a color from hue, saturation, luminosity, and alpha components.",
+        "examples": [
+          "Alpha.qtz"
+        ],
+        "name": "HSL Color"
+      },
+      "className": "QCColorFromComponents",
+      "identifier": "hsl",
+      "instanceClass": "QCColorFromComponents",
+      "name": "QCColorFromComponents:hsl",
+      "ports": {
+        "inputs": {
+          "input1": {
+            "baseClass": "QCNumberPort",
+            "description": "The hue component.",
+            "direction": -1,
+            "key": "input1",
+            "kind": 0,
+            "name": "Hue",
+            "order": 0,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "input2": {
+            "baseClass": "QCNumberPort",
+            "description": "The saturation component.",
+            "direction": -1,
+            "key": "input2",
+            "kind": 0,
+            "name": "Saturation",
+            "order": 1,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "input3": {
+            "baseClass": "QCNumberPort",
+            "description": "The luminosity component.",
+            "direction": -1,
+            "key": "input3",
+            "kind": 0,
+            "name": "Luminosity",
+            "order": 2,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "inputAlpha": {
+            "baseClass": "QCNumberPort",
+            "description": "The alpha component",
+            "direction": -1,
+            "key": "inputAlpha",
+            "kind": 0,
+            "name": "Alpha",
+            "order": 3,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 1,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          }
+        },
+        "outputs": {
+          "outputColor": {
+            "baseClass": "QCColorPort",
+            "description": "The resulting color.",
+            "direction": 1,
+            "key": "outputColor",
+            "kind": 0,
+            "name": "Color",
+            "order": 0,
+            "portClass": "QCColorPort",
+            "QCPortAttributeDefaultValueKey": {
+              "alpha": 1,
+              "blue": 0.9999999403953552,
+              "green": 0.9999999403953552,
+              "red": 1
+            },
+            "QCPortAttributeTypeKey": "QCPortTypeColor",
+            "valueClass": "NSColor"
+          }
+        }
+      }
+    },
+    {
+      "attributes": {
+        "aliasNames": [
+          "Red",
+          "Green",
+          "Blue",
+          "Alpha"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Extracts the red, green, blue, and alpha components from a color.",
+        "name": "Color to RGB"
+      },
+      "className": "QCColorToComponents",
+      "identifier": "rgb",
+      "instanceClass": "QCColorToComponents",
+      "name": "QCColorToComponents:rgb",
+      "ports": {
+        "inputs": {
+          "inputColor": {
+            "baseClass": "QCColorPort",
+            "description": "The source color.",
+            "direction": -1,
+            "key": "inputColor",
+            "kind": 0,
+            "name": "Color",
+            "order": 0,
+            "portClass": "QCColorPort",
+            "QCPortAttributeDefaultValueKey": {
+              "alpha": 1,
+              "blue": 0.9999999403953552,
+              "green": 0.9999999403953552,
+              "red": 1
+            },
+            "QCPortAttributeTypeKey": "QCPortTypeColor",
+            "valueClass": "NSColor"
+          }
+        },
+        "outputs": {
+          "output1": {
+            "baseClass": "QCNumberPort",
+            "description": "The red component.",
+            "direction": 1,
+            "key": "output1",
+            "kind": 0,
+            "name": "Red",
+            "order": 0,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "output2": {
+            "baseClass": "QCNumberPort",
+            "description": "The green component.",
+            "direction": 1,
+            "key": "output2",
+            "kind": 0,
+            "name": "Green",
+            "order": 1,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "output3": {
+            "baseClass": "QCNumberPort",
+            "description": "The blue component.",
+            "direction": 1,
+            "key": "output3",
+            "kind": 0,
+            "name": "Blue",
+            "order": 2,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "outputAlpha": {
+            "baseClass": "QCNumberPort",
+            "description": "The alpha component.",
+            "direction": 1,
+            "key": "outputAlpha",
+            "kind": 0,
+            "name": "Alpha",
+            "order": 3,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          }
+        }
+      }
+    },
+    {
+      "attributes": {
+        "aliasNames": [
+          "HSB",
+          "Hue",
+          "Saturation",
+          "Luminosity",
+          "Brightness",
+          "Alpha"
+        ],
+        "categories": [
+          "Utility/Color"
+        ],
+        "description": "Extracts the hue, saturation, luminosity, and alpha components from a color.",
+        "name": "Color to HSL"
+      },
+      "className": "QCColorToComponents",
+      "identifier": "hsl",
+      "instanceClass": "QCColorToComponents",
+      "name": "QCColorToComponents:hsl",
+      "ports": {
+        "inputs": {
+          "inputColor": {
+            "baseClass": "QCColorPort",
+            "description": "The source color.",
+            "direction": -1,
+            "key": "inputColor",
+            "kind": 0,
+            "name": "Color",
+            "order": 0,
+            "portClass": "QCColorPort",
+            "QCPortAttributeDefaultValueKey": {
+              "alpha": 1,
+              "blue": 0.9999999403953552,
+              "green": 0.9999999403953552,
+              "red": 1
+            },
+            "QCPortAttributeTypeKey": "QCPortTypeColor",
+            "valueClass": "NSColor"
+          }
+        },
+        "outputs": {
+          "output1": {
+            "baseClass": "QCNumberPort",
+            "description": "The hue component.",
+            "direction": 1,
+            "key": "output1",
+            "kind": 0,
+            "name": "Hue",
+            "order": 0,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "output2": {
+            "baseClass": "QCNumberPort",
+            "description": "The saturation component.",
+            "direction": 1,
+            "key": "output2",
+            "kind": 0,
+            "name": "Saturation",
+            "order": 1,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "output3": {
+            "baseClass": "QCNumberPort",
+            "description": "The luminosity component.",
+            "direction": 1,
+            "key": "output3",
+            "kind": 0,
+            "name": "Luminosity",
+            "order": 2,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          },
+          "outputAlpha": {
+            "baseClass": "QCNumberPort",
+            "description": "The alpha component.",
+            "direction": 1,
+            "key": "outputAlpha",
+            "kind": 0,
+            "name": "Alpha",
+            "order": 3,
+            "portClass": "QCNumberPort",
+            "QCPortAttributeDefaultValueKey": 0,
+            "QCPortAttributeTypeKey": "QCPortTypeNumber",
+            "valueClass": "NSNumber"
+          }
+        }
+      }
+    }
+  ]
+}

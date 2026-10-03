@@ -1,0 +1,55 @@
+name: Documentation
+
+# Structural documentation gate. This proves links, anchors, the decision registry and fixture
+# hashes are consistent. It does NOT prove prose matches the runtime — see docs/verification/README.md.
+# The full code gate (Scripts/verify.sh) needs an unlocked GUI desktop session for the UI journeys
+# and a Metal toolchain, so it is not wired here.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-docs:
+    name: scripts/verify-docs --strict
+    runs-on: macos-14
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Test the privacy scanner
+        run: python3 Scripts/test-public-preflight.py
+
+      - name: Check public files and reachable history
+        run: bash Scripts/public-preflight.sh
+
+      - name: Show the available Python
+        run: python3 --version
+
+      - name: Check documentation structure
+        run: |
+          chmod +x Scripts/verify-docs
+          Scripts/verify-docs --strict
+
+      - name: Check documentation structure (JSON summary)
+        if: always()
+        run: Scripts/verify-docs --json > docs-verification.json || true
+
+      - name: Upload the documentation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-verification
+          path: docs-verification.json
+          if-no-files-found: warn

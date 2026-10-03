@@ -5,6 +5,10 @@ in `../evidence/`; this page records *what changed*, not *what passed*.
 
 ## 2026-10-03 — public GitHub source package
 
+- Uploaded the audited source to `Steolepanda/metaliquartz`, branch `codex/public-source`, using
+  fresh history and a GitHub noreply identity. The existing GitHub `main` initial commit contains
+  a personal email; it is preserved locally and requires approval before replacement.
+
 - Added an allowlist-based source ZIP preparer, SHA-256 and per-file hash manifest under ignored
   `dist/github/`; no upload, index mutation or history rewrite occurs.
 - Expanded the privacy gate to prospective untracked files, staged contents, reachable blobs and commit metadata,

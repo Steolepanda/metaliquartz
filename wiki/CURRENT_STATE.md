@@ -1,7 +1,7 @@
 # CURRENT_STATE — Metaliquartz
 
 > Last reviewed: 2026-10-03
-> Reviewer: public source-package audit (see `evidence/2026-10-03-public-source-package.md`)
+> Reviewer: public source-package audit and GitHub upload (see `evidence/2026-10-03-github-publication.md`)
 > This page is the operational handoff. History lives in `changelog/CHANGELOG.md` and
 > `evidence/`.
 
@@ -60,7 +60,11 @@ Jump to the [known problems](#known-problems-and-risks) or the [next actions](#n
   10 MiB and the original scanner's personal contact address. Two local reference documents are
   still tracked despite the new `Documentation/` ignore rule. They are excluded from the package;
   local inputs and original history are preserved. Publish from a fresh extracted source tree.
-- GitHub privacy and structural CI are configured, but have not run remotely. No upload occurred.
+- The audited source was uploaded to GitHub branch `codex/public-source` at
+  `2dd0f43dc9a92b89c1b27aacca509794ef827ed4`, using a GitHub noreply identity and fresh history.
+  The target repository's original `main` contains one initial README commit with a personal
+  email in its metadata. Replacing that commit requires owner approval; it is preserved locally.
+  Remote CI status is pending inspection; see `evidence/2026-10-03-github-publication.md`.
 
 ## Next actions
 
@@ -127,6 +131,10 @@ Risk register (not defects):
 - **R4 — Catalog drift.** New probes still depend on local framework inputs. Existing colour
   definitions can now be regenerated and checked using the public six-patch schema fixture and
   `Scripts/generate-swift-color-patches.py`; the full private capture is not required.
+
+- **R5 — Initial-import whitespace.** A whole-tree `git diff --cached --check` reports existing
+  catalog string indentation, historical Markdown whitespace and vendored Syphon whitespace.
+  These are outside the upload scope; the Swift lint and privacy gates pass.
 
 ## Pointers
 

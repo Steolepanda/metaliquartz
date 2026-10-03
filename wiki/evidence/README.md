@@ -6,6 +6,7 @@ template and the reporting rules.
 
 | Date | Page | Class | Scope |
 | --- | --- | --- | --- |
+| 2026-10-03 | `2026-10-03-github-publication.md` | automated | Clean-history GitHub upload; original main metadata remains a privacy blocker |
 | 2026-10-03 | `2026-10-03-public-source-package.md` | automated | Public source ZIP, privacy audit and extracted-tree checks |
 | 2026-09-25 | `2026-09-25-reorganization.md` | automated | Documentation tree build-out and its own audit |
 | 2026-09-25 | `2026-09-25-docs-checker-proof.md` | automated | Proof that `Scripts/verify-docs` reports every failure class |
